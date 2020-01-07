@@ -1,0 +1,35 @@
+---
+- name: Install Test Server Softwares
+  hosts: all
+  become: true
+  vars:
+   ansible_become_pass: reshmi
+  tasks:
+   - name: Install git
+     package:
+      name: git
+      state: present
+      
+   - name: Install Jdk
+     package:
+      name: default-jre
+      state: present
+      
+   - name: Copy chromedriver
+     copy:
+      src: /home/reshmi/chromedriver
+      dest: /home/reshmi/
+      
+   - name: Install Chromium browser
+     package:
+      name: chromium-browser
+      state: present
+      
+   - name: Install chromedriver
+     package:
+      name: chromium-chromedriver
+      state: present
+      
+   - name: run update
+     apt:
+      update-cache: yes
